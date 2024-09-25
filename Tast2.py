@@ -8,39 +8,47 @@ dict_number = random.randint(2, 10)
 print("\nThe number of generated dictionaries is", dict_number)
 
 #list to store all dictionaries
-all_dicts = []
+all_dicts = [
+    {random.choice(string.ascii_lowercase): random.randint(0, 100) for _ in range(random.randint(5, 15))}
+    for _ in range(dict_number)
+]
 
-#to iterate
-i=1 #iterate every dictionary
-g=0 #itarate every element in dictionary
-
-while i <= dict_number:
-    random_dict = {}
-    #every dict would have diff number of pairs key+values from 5 to 15
-    dict_size = random.randint(5, 15)
-
-    #list to store all letters
-    letters = list(string.ascii_lowercase)
-    g = 0
-    #to generate diff amount
-    while g <= dict_size:
-        #select random letter
-        dict_key = random.sample(letters, 1)[0]
-
-        #remove selected letter to avoid key's duplications
-        letters.remove(dict_key)
-
-        #random value
-        dict_value = random.randint(0, 100)
-        random_dict[dict_key] = dict_value
-        g+=1
-    ## add newly created dict to list of dicts
-    all_dicts.append(random_dict)
-    i+=1
+# all_dicts = []
+#
+# #to iterate
+# i=1 #iterate every dictionary
+# g=0 #itarate every element in dictionary
+#
+# while i <= dict_number:
+#     random_dict = {}
+#     #every dict would have diff number of pairs key+values from 5 to 15
+#     dict_size = random.randint(5, 15)
+#
+#     #list to store all letters
+#     letters = list(string.ascii_lowercase)
+#     g = 0
+#     #to generate diff amount
+#     while g <= dict_size:
+#         #select random letter
+#         dict_key = random.sample(letters, 1)[0]
+#
+#         #remove selected letter to avoid key's duplications
+#         letters.remove(dict_key)
+#
+#         #random value
+#         dict_value = random.randint(0, 100)
+#         random_dict[dict_key] = dict_value
+#         g+=1
+#     ## add newly created dict to list of dicts
+#     all_dicts.append(random_dict)
+#     i+=1
 
 print("\nGenerated dicts:")
-for item in all_dicts:
-    print(f'D_{all_dicts.index(item)} is {item}')
+for x, y in enumerate(all_dicts):
+    print(f'D_{x} is {y}')
+
+
+
 
 ### PART2 ###
 final_dict = {}
