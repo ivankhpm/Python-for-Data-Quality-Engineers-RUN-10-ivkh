@@ -122,10 +122,6 @@ class File:
 
         self.process_lines(lines, news_feed)
 
-        # Remove file after processing
-        os.remove(self.file_path)
-        print("Processed and removed the input file:", self.file_path)
-
     def process_lines(self, lines, news_feed):
 
         #describe types of news to select proper class
@@ -134,6 +130,9 @@ class File:
             '2': {'class': PrivateAd, 'length': 3},
             '3': {'class': BirthNotification, 'length': 3}
         }
+
+        temp_news_feed = []
+        error_occurred = False
 
         ##iter every record
         for line in lines:
@@ -149,17 +148,27 @@ class File:
                 try:
                     if record_class is News:
                         text, city = capitalized_sentences(data[1].strip()), data[2].strip()
-                        news_feed.add_record(News(text, city))
+                        temp_news_feed.append(News(text, city))
                     elif record_class is PrivateAd:
                         text, expiration_date = capitalized_sentences(data[1].strip()), data[2].strip()
-                        news_feed.add_record(PrivateAd(text, expiration_date))
+                        temp_news_feed.append(PrivateAd(text, expiration_date))
                     elif record_class is BirthNotification:
                         user_name, date_of_birth = capitalized_sentences(data[1].strip()), data[2].strip()
-                        news_feed.add_record(BirthNotification(user_name, date_of_birth))
+                        temp_news_feed.append(BirthNotification(user_name, date_of_birth))
                 except ValueError:
-                    print(f"Error in record '{line.strip()}': {ValueError}")
+                    print(f"Error in record '{line.strip()}': {ValueError}. File was not processed")
+                    error_occurred = True
             else:
-                print(f"Incorrect record type or data structure: {line.strip()}")
+                print(f"Incorrect record type or data structure: {line.strip()}. File was not processed")
+                error_occurred = True
+
+        if not error_occurred:
+            final_news_feed = NewsFeed()
+            for record in temp_news_feed:
+                final_news_feed.add_record(record)
+            # Remove file after processing
+            os.remove(self.file_path)
+            print("Processed and removed the input file:", self.file_path)
 
 ### HM7 CSV
 class FileCsv:
@@ -274,3 +283,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
