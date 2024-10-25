@@ -1,0 +1,27 @@
+[
+  {
+    "type": "1",
+    "text": "Test11111",
+    "city": "Kyiv"
+  },
+  {
+    "type": "1",
+    "text": "Test211111",
+    "city": "Kyiv"
+  },
+  {
+    "type": "2",
+    "text": "PrivateAd Test11111",
+    "expiration_date": "11-01-2022"
+  },
+  {
+    "type": "2",
+    "text": "PrivateAd Test1111111",
+    "expiration_date": "11-01-2022"
+  },
+  {
+    "type": "3",
+    "user_name": "User1234",
+    "date_of_birth": "11-01-2022"
+  }
+]
