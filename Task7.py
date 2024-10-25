@@ -13,6 +13,9 @@ class NewsFeed:
     def add_record(self, record):
         self.records.append(record)
 
+    def remove_all(self):
+        self.records.clear()
+
 ## to add all inputs to file
     def publish_records(self):
         with open("news_feed.txt", "a") as file:
@@ -141,20 +144,20 @@ class File:
             # get data type of each row
             data_type = data[0].strip()
 
-            #check that type is correct and required field amount correct
+            # check that type is correct and required field amount correct
             if data_type in data_mapping and len(data) == data_mapping[data_type]['length']:
-                #helper for getting class
+                # helper for getting class
                 record_class = data_mapping[data_type]['class']
                 try:
                     if record_class is News:
                         text, city = capitalized_sentences(data[1].strip()), data[2].strip()
-                        temp_news_feed.append(News(text, city))
+                        news_feed.add_record(News(text, city))
                     elif record_class is PrivateAd:
                         text, expiration_date = capitalized_sentences(data[1].strip()), data[2].strip()
-                        temp_news_feed.append(PrivateAd(text, expiration_date))
+                        news_feed.add_record(PrivateAd(text, expiration_date))
                     elif record_class is BirthNotification:
                         user_name, date_of_birth = capitalized_sentences(data[1].strip()), data[2].strip()
-                        temp_news_feed.append(BirthNotification(user_name, date_of_birth))
+                        news_feed.add_record(BirthNotification(user_name, date_of_birth))
                 except ValueError:
                     print(f"Error in record '{line.strip()}': {ValueError}. File was not processed")
                     error_occurred = True
@@ -163,12 +166,12 @@ class File:
                 error_occurred = True
 
         if not error_occurred:
-            final_news_feed = NewsFeed()
-            for record in temp_news_feed:
-                final_news_feed.add_record(record)
             # Remove file after processing
             os.remove(self.file_path)
             print("Processed and removed the input file:", self.file_path)
+            return news_feed
+        else:
+            return news_feed.remove_all()
 
 ### HM7 CSV
 class FileCsv:
