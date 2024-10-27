@@ -1,0 +1,27 @@
+<news_load>
+  <news>
+    <type>1</type>
+    <text>Test11111</text>
+    <city>Kyiv</city>
+  </news>
+  <news>
+    <type>1</type>
+    <text>Test211111</text>
+    <city>Kyiv</city>
+  </news>
+  <news>
+    <type>2</type>
+    <text>PrivateAd Test1133333xml</text>
+    <expiration_date>11-01-2022</expiration_date>
+  </news>
+  <news>
+    <type>2</type>
+    <text>PrivateAd Test1111111</text>
+    <expiration_date>11-01-2022</expiration_date>
+  </news>
+  <news>
+    <type>3</type>
+    <user_name>User1234</user_name>
+    <date_of_birth>11-01-2022</date_of_birth>
+  </news>
+</news_load>
