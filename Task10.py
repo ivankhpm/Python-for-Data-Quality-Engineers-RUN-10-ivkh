@@ -32,6 +32,7 @@ class NewsFeed:
                     with open("news_feed.txt", "a") as file:
                         for record in self.records:
                             file.write(record.publish())
+                    return True
                 else:
                     print("Please recheck your data.")
                 self.records = []
@@ -68,6 +69,7 @@ class PrivateAd:
 ##Day left calculation
     def calculate_days_left(self):
         today = dt.datetime.now().date()
+        ##expiration_date = dt.datetime.strptime(self.expiration_date, "%d-%m-%Y").date()
         return (self.expiration_date - today).days
 
 ##publish PrivateAd
@@ -323,6 +325,7 @@ class DatabaseManager:
     def __init__(self, db_name):
         self.db_name = db_name
         self.conn = sqlite3.connect(self.db_name)
+        self.conn.isolation_level = None  # Control transactions manually
         self.cursor = self.conn.cursor()
         self.create_tables()
 
@@ -471,7 +474,8 @@ def main():
     if user_choice.lower() == 'file':
         file_handler = File()
         file_handler.read_records(news_feed)
-        news_feed.publish_records()
+        if news_feed.publish_records():
+            os.remove(file_handler.file_path)
         db_manager.close_connection()
 
     elif user_choice.lower() == 'manual':
