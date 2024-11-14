@@ -356,7 +356,7 @@ class DatabaseManager:
 
     def fetch_records(self):
         # News Records
-        self.cursor.execute("SELECT * FROM News")
+        self.cursor.execute("SELECT text, city FROM News")
         news_records = self.cursor.fetchall()
         print("News Records")
         print("-----------")
@@ -365,7 +365,7 @@ class DatabaseManager:
         print()
 
         # Private Ad Records
-        self.cursor.execute("SELECT * FROM PrivateAd")
+        self.cursor.execute("SELECT text, expiration_date FROM PrivateAd") 
         private_ad_records = self.cursor.fetchall()
         print("Private Ad Records")
         print("-----------------")
@@ -374,7 +374,7 @@ class DatabaseManager:
         print()
 
         # Birth Notification Records
-        self.cursor.execute("SELECT * FROM BirthNotification")
+        self.cursor.execute("SELECT user_name, date_of_birth FROM BirthNotification")
         birth_notification_records = self.cursor.fetchall()
         print("Birth Notification Records")
         print("-------------------------")
